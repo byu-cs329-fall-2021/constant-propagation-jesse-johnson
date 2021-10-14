@@ -33,6 +33,8 @@
 			<groupId>edu.byu.cs329</groupId>
 			<artifactId>project-utils</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/project-utils/target/project-utils-1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<dependency>

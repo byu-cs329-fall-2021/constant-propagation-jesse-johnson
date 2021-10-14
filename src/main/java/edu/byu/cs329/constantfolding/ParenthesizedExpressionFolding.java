@@ -1,7 +1,5 @@
 package edu.byu.cs329.constantfolding;
 
-import edu.byu.cs329.utils.ExceptionUtils;
-import edu.byu.cs329.utils.TreeModificationUtils;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -15,6 +13,9 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import edu.byu.cs329.utils.ExceptionUtils;
+import edu.byu.cs329.utils.TreeModificationUtils;
 
 /**
  * Replaces parenthesized literals with the literal.

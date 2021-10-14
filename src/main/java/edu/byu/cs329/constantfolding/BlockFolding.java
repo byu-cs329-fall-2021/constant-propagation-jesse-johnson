@@ -1,14 +1,16 @@
 package edu.byu.cs329.constantfolding;
 
-import edu.byu.cs329.utils.ExceptionUtils;
-import edu.byu.cs329.utils.TreeModificationUtils;
 import java.util.List;
+
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
+
+import edu.byu.cs329.utils.ExceptionUtils;
+import edu.byu.cs329.utils.TreeModificationUtils;
 
 public class BlockFolding implements Folding {
   
