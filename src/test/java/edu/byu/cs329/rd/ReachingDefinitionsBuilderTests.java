@@ -47,7 +47,7 @@ public class ReachingDefinitionsBuilderTests {
   @Tag("Conditionals")
   @DisplayName("Contains if statement")
   void interestingTwo(){
-    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingIf("If");
+    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingIf(4, 5, 0, 1);
     ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
     Statement start = controlFlowGraph.getStart();
     Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
@@ -60,7 +60,7 @@ public class ReachingDefinitionsBuilderTests {
   @Tag("Conditionals")
   @DisplayName("Contains While Loop")
   void interestingThree(){
-    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingWhile("While");
+    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingWhile(2, 7, 1);
     ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
     Statement start = controlFlowGraph.getStart();
     Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
