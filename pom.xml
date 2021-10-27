@@ -24,7 +24,7 @@
 		<log4j.slf4j.version>2.11.1</log4j.slf4j.version>
 		<exec.maven.version>3.0.0</exec.maven.version>
 		<junit.standalone.version>1.7.0-M1</junit.standalone.version>
-		<mockito.version>3.5.10</mockito.version>
+		<mockito.version>3.12.4</mockito.version>
 		<jacoco.version>0.8.6</jacoco.version>
 	</properties>
 

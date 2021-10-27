@@ -1,8 +1,12 @@
 package edu.byu.cs329.rd;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.withSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import edu.byu.cs329.cfg.ControlFlowGraph;
 import edu.byu.cs329.rd.ReachingDefinitions.Definition;
@@ -25,6 +30,41 @@ public class ReachingDefinitionsBuilderTests {
   @BeforeEach
   void beforeEach() {
     unitUnderTest = new ReachingDefinitionsBuilder();
+  }
+
+  @Test
+  @Tag("Parameters")
+  @DisplayName("Two Parameters are both empty strings")
+  void interestingOne(){
+    ControlFlowGraph controlFlowGraph = MockUtils.newMockForTwoIdenticalParameters("");
+    ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
+    Statement start = controlFlowGraph.getStart();
+    Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
+
+    assertEquals(2, definitions.size());
+    assertTrue(doesDefine("", definitions));
+    System.out.println(start.toString());
+
+  }
+
+  @Test
+  @Tag("Conditionals")
+  @DisplayName("Contains if statement")
+  void interestingTwo(){
+    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingIf("If");
+    ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
+    Statement start = controlFlowGraph.getStart();
+    Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
+  }
+
+  @Test
+  @Tag("Conditionals")
+  @DisplayName("Contains While Loop")
+  void interestingThree(){
+    ControlFlowGraph controlFlowGraph = MockUtils.newMockForContainingWhile("While");
+    ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
+    Statement start = controlFlowGraph.getStart();
+    Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
   }
 
   @Test
