@@ -55,6 +55,16 @@ public class MockUtils {
     Statement statement = mock(Statement.class);
     when(cfg.getStart()).thenReturn(statement);
     Block block = newMockForBlockIf();
+    MethodDeclaration methodDeclarion = newMockForMethodDeclaration(block);
+
+    VariableDeclaration firstParameter = newMockForVariableDeclaration("First");
+    VariableDeclaration secondParameter = newMockForVariableDeclaration("Second");
+
+    List<VariableDeclaration> parameterList = new ArrayList<VariableDeclaration>();
+    parameterList.add(firstParameter);
+    parameterList.add(secondParameter);
+    when(methodDeclarion.parameters()).thenReturn(parameterList);
+    when(cfg.getMethodDeclaration()).thenReturn(methodDeclarion);
 
     return cfg;
   }
@@ -64,6 +74,18 @@ public class MockUtils {
     Statement statement = mock(Statement.class);
     when(cfg.getStart()).thenReturn(statement);
     Block block = newMockForBlockWhile(3);
+    
+    MethodDeclaration methodDeclarion = newMockForMethodDeclaration(block);
+
+    
+    VariableDeclaration firstParameter = newMockForVariableDeclaration("First");
+    VariableDeclaration secondParameter = newMockForVariableDeclaration("Second");
+
+    List<VariableDeclaration> parameterList = new ArrayList<VariableDeclaration>();
+    parameterList.add(firstParameter);
+    parameterList.add(secondParameter);
+    when(methodDeclarion.parameters()).thenReturn(parameterList);
+    when(cfg.getMethodDeclaration()).thenReturn(methodDeclarion);
 
     return cfg;
   }

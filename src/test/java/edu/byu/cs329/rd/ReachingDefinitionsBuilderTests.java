@@ -4,20 +4,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.WhileStatement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import edu.byu.cs329.cfg.ControlFlowGraph;
 import edu.byu.cs329.rd.ReachingDefinitions.Definition;
@@ -43,8 +41,6 @@ public class ReachingDefinitionsBuilderTests {
 
     assertEquals(2, definitions.size());
     assertTrue(doesDefine("", definitions));
-    System.out.println(start.toString());
-
   }
 
   @Test
@@ -55,6 +51,9 @@ public class ReachingDefinitionsBuilderTests {
     ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
     Statement start = controlFlowGraph.getStart();
     Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
+    assertEquals(2, definitions.size());
+    //going to change the next statement to assert that it computes properly when implemented
+    assertTrue(definitions.toArray()[0] instanceof IfStatement);
   }
 
   @Test
@@ -65,6 +64,9 @@ public class ReachingDefinitionsBuilderTests {
     ReachingDefinitions reachingDefinitions = getReachingDefinitions(controlFlowGraph);
     Statement start = controlFlowGraph.getStart();
     Set<Definition> definitions = reachingDefinitions.getReachingDefinitions(start);
+    assertEquals(2, definitions.size());
+    //going to change the next statement to assert that it computes properly when implemented
+    assertTrue(definitions.toArray()[0] instanceof WhileStatement);
   }
 
   @Test
