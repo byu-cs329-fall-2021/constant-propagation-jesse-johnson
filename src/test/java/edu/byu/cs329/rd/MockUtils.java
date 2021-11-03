@@ -6,8 +6,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
@@ -20,7 +18,6 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
-import org.eclipse.jdt.core.dom.Assignment.Operator;
 
 import edu.byu.cs329.cfg.ControlFlowGraph;
 
@@ -147,9 +144,11 @@ public class MockUtils {
 
   public static VariableDeclaration newMockForVariableDeclaration(String name) {
     VariableDeclaration declaration = mock(VariableDeclaration.class);
-    SimpleName simpleName = mock(SimpleName.class);
-    when(simpleName.getIdentifier()).thenReturn(name);
-    when(declaration.getName()).thenReturn(simpleName);
+    SimpleName simpleName1 = newMockForSimpleName();
+    SimpleName simpleName2 = newMockForSimpleName();
+    when(simpleName1.getIdentifier()).thenReturn(name);
+    declaration.setInitializer(simpleName2);
+    when(declaration.getName()).thenReturn(simpleName1);
     return declaration;
   }
 
@@ -158,7 +157,7 @@ public class MockUtils {
     List<VariableDeclaration> vars = new ArrayList<VariableDeclaration>();
     for (int i = 0; i < numStatements; i++){
       SimpleName simpleName = newMockForSimpleName();
-      VariableDeclaration variableDeclaration = newMockForVariableDeclaration(simpleName.toString());
+      VariableDeclaration variableDeclaration = newMockForVariableDeclaration(simpleName.getFullyQualifiedName());
       vars.add(variableDeclaration);
     }
     when(declaration.fragments()).thenReturn(vars);
