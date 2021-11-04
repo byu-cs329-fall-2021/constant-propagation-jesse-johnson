@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 public class ReachingDefinitionsBuilder {
   private List<ReachingDefinitions> rdList = null;
   private Map<Statement, Set<Definition>> entrySetMap = null;
+  private SimpleName name = null;
 
   /**
    * Computes the reaching definitions for each control flow graph.
@@ -55,8 +56,10 @@ public class ReachingDefinitionsBuilder {
     Set<Definition> newExit = new HashSet<Definition>();
     while (!worklist.isEmpty()){
       Statement stmt = worklist.remove(0);
+      newEntry = new HashSet<Definition>();
+      newExit = new HashSet<Definition>();
       if (!oldExit.isEmpty()){
-        newEntry = oldExit;
+        newEntry.addAll(oldExit);
       }
       else newEntry = oldEntry;
       if (stmt instanceof ExpressionStatement){
@@ -65,7 +68,8 @@ public class ReachingDefinitionsBuilder {
       
         if (curExp instanceof Assignment){
           Definition def = new Definition();
-          def.name.setIdentifier(((Assignment) curExp).getLeftHandSide().toString());
+
+          def.name = name;
           def.statement = stmt;
           newExit.add(def);
         }
@@ -77,6 +81,7 @@ public class ReachingDefinitionsBuilder {
       
         for (VariableDeclaration vd : curExp){
           Definition def = new Definition();
+          name = vd.getName();
           def.name = vd.getName();
           def.statement = stmt;
           newExit.add(def);
