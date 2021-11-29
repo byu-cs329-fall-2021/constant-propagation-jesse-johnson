@@ -1,8 +1,14 @@
 package edu.byu.cs329.constantpropagation;
 
+import edu.byu.cs329.cfg.ControlFlowGraph;
+import edu.byu.cs329.cfg.ControlFlowGraphBuilder;
+import edu.byu.cs329.constantfolding.ConstantFolding;
 import edu.byu.cs329.utils.JavaSourceUtils;
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.List;
+
+import org.eclipse.jdt.core.dom.ASTMatcher;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +27,18 @@ public class ConstantPropagation {
    * 
    * @param node the root node for constant propagation.
    */
-  public static void propagate(ASTNode node) {
+  public static ASTNode propagate(ASTNode node) {
+    ASTNode prevNode = node;
+    ASTNode currNode = node;
+    do{
+      currNode = ConstantFolding.fold(currNode);
+      ControlFlowGraphBuilder builder = new ControlFlowGraphBuilder();
+      List<ControlFlowGraph> cfgList = builder.build(currNode);
+      ControlFlowGraph cfg = cfgList.get(0);
+      
+      
+    } while(prevNode.subtreeMatch(new ASTMatcher(), currNode) == false);
+    return node;
   }
 
   /**
