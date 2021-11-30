@@ -1,5 +1,6 @@
 public class Name {
     void name() {
-        int i = 4;
+        int i = 2;
+        i = 4;
     }
 }

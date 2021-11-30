@@ -81,7 +81,6 @@ public class ReachingDefinitionsBuilder {
       
         for (VariableDeclaration vd : curExp){
           Definition def = new Definition();
-          name = vd.getName();
           def.name = vd.getName();
           def.statement = stmt;
           newExit.add(def);
