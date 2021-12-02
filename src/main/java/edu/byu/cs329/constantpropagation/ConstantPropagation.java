@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTMatcher;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Assignment;
@@ -71,7 +73,6 @@ public class ConstantPropagation {
       for (Statement st : cfg.getSuccs(start)){
         if(st instanceof ExpressionStatement){
           Expression exp = ((ExpressionStatement) st).getExpression();
-          Expression left = ((Assignment) exp).getLeftHandSide();
           Expression right = ((Assignment) exp).getRightHandSide();
           
           for (Definition def : rd.getReachingDefinitions(st)){
@@ -84,17 +85,16 @@ public class ConstantPropagation {
               if (right instanceof InfixExpression){
                 InfixExpression r = (InfixExpression) right;
                 if (lhs.equals(r.getRightOperand().toString())){
-                  r.setRightOperand(rhs);//giving exception
+                  r.setRightOperand(rhs);    //giving exception "Illegal Argument Exception"
                 }
                 if (lhs.equals(r.getLeftOperand().toString())){
-                  r.setLeftOperand(rhs);//giving exception
+                  r.setLeftOperand(rhs);     
                 }
                 for(Object ob : r.extendedOperands()){
                   if (ob.toString().equals(lhs)){
-                    ob = rhs;//giving exception
+                    ob = rhs;                
                   }
                 }
-                right = r;
               }
             }
           }
